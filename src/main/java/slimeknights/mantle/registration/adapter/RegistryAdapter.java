@@ -2,8 +2,8 @@ package slimeknights.mantle.registration.adapter;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.neoforged.fml.ModLoadingContext;
 
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class RegistryAdapter<T> {
    * @param name  Name for location
    */
   public ResourceLocation getResource(String name) {
-    return new ResourceLocation(modId, name);
+    return ResourceLocation.fromNamespaceAndPath(modId, name);
   }
 
   /**

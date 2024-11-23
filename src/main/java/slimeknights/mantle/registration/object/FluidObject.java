@@ -36,7 +36,7 @@ public class FluidObject<F extends Fluid> implements Supplier<F>, ItemLike, IdAw
   /** Main constructor */
   public FluidObject(ResourceLocation id, String tagName, Supplier<? extends FluidType> type, Supplier<? extends F> still) {
     this.id = id;
-    this.forgeTag = FluidTags.create(new ResourceLocation("forge", tagName));
+    this.forgeTag = FluidTags.create(ResourceLocation.fromNamespaceAndPath("forge", tagName));
     this.type = type;
     this.still = still;
   }

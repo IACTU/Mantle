@@ -1,8 +1,6 @@
 package slimeknights.mantle.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,17 +10,17 @@ import java.util.List;
  */
 public class Config {
 	/** If true, enables the heart renderer */
-	public static final BooleanValue EXTRA_HEART_RENDERER;
+	public static final ModConfigSpec.BooleanValue EXTRA_HEART_RENDERER;
 
 	/** List of preferences for tag outputs */
 	private static final List<String> DEFAULT_TAG_PREFERENCES = Arrays.asList("minecraft", "tconstruct", "tmechworks", "create", "immersiveengineering", "mekanism", "thermal");
-	public static final ConfigValue<List<? extends String>> TAG_PREFERENCES;
+	public static final ModConfigSpec.ConfigValue<List<? extends String>> TAG_PREFERENCES;
 
-	public static final ForgeConfigSpec CLIENT_SPEC, SERVER_SPEC;
+	public static final ModConfigSpec CLIENT_SPEC, SERVER_SPEC;
 
 	static {
-    ForgeConfigSpec.Builder client = new ForgeConfigSpec.Builder();
-    ForgeConfigSpec.Builder server = new ForgeConfigSpec.Builder();
+    ModConfigSpec.Builder client = new ModConfigSpec.Builder();
+    ModConfigSpec.Builder server = new ModConfigSpec.Builder();
 
 		// client options
 		EXTRA_HEART_RENDERER = client

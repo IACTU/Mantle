@@ -17,8 +17,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 
 import java.util.Comparator;
@@ -151,7 +151,7 @@ public class RecipeHelper {
    */
   public static FluidStack deserializeFluidStack(JsonObject json) {
     String fluidName = GsonHelper.getAsString(json, "fluid");
-    Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidName));
+    Fluid fluid = ForgeRegistries.FLUIDS.getValue(ResourceLocation.parse(fluidName));
     if (fluid == null || fluid == Fluids.EMPTY) {
       throw new JsonSyntaxException("Unknown fluid " + fluidName);
     }
@@ -169,7 +169,7 @@ public class RecipeHelper {
    * @throws JsonSyntaxException  If the key is missing, or the value is not the right class
    */
   public static <C> C deserializeItem(String name, String key, Class<C> clazz) {
-    Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(name));
+    Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(name));
     if (item == null) {
       throw new JsonSyntaxException("Invalid " + key + ": Unknown item " + name + "'");
     }

@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.Util;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 /** Provider for fluid tooltip information */
 @SuppressWarnings({"unused", "SameParameterValue"})  // API
 public abstract class AbstractFluidTooltipProvider extends GenericDataProvider {
-  private final Map<ResourceLocation,ResourceLocation> redirects = new HashMap<>();;
+  private final Map<ResourceLocation,ResourceLocation> redirects = new HashMap<>();
   private final Map<ResourceLocation,FluidUnitListBuilder> builders = new HashMap<>();
   private final String modId;
 
@@ -52,7 +51,7 @@ public abstract class AbstractFluidTooltipProvider extends GenericDataProvider {
 
   /** Creates a ResourceLocation for the local mod */
   protected ResourceLocation id(String name) {
-    return new ResourceLocation(modId, name);
+    return ResourceLocation.fromNamespaceAndPath(modId, name);
   }
 
   /** Adds a fluid to the builder */
@@ -120,7 +119,7 @@ public abstract class AbstractFluidTooltipProvider extends GenericDataProvider {
 
     /** Adds a unit local to the given mod */
     public FluidUnitListBuilder addUnit(String key, String domain, int amount) {
-      return addUnitRaw(Util.makeDescriptionId("gui", new ResourceLocation(domain, "fluid." + key)), amount);
+      return addUnitRaw(Util.makeDescriptionId("gui", ResourceLocation.fromNamespaceAndPath(domain, "fluid." + key)), amount);
     }
 
     /** Builds the final instance */

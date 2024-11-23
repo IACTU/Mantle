@@ -68,7 +68,7 @@ public class WoodBlockObject extends FenceBuildingBlockObject {
     this.button = button;
     this.sign = sign;
     this.wallSign = wallSign;
-    ResourceLocation tagName = new ResourceLocation(name.getNamespace(), name.getPath() + "_logs");
+    ResourceLocation tagName = ResourceLocation.fromNamespaceAndPath(name.getNamespace(), name.getPath() + "_logs");
     this.logBlockTag = BlockTags.create(tagName);
     this.logItemTag = ItemTags.create(tagName);
   }
@@ -90,7 +90,7 @@ public class WoodBlockObject extends FenceBuildingBlockObject {
     this.button = getCastedHolder(BuiltInRegistries.BLOCK, button);
     this.sign = getCastedHolder(BuiltInRegistries.BLOCK, sign);
     this.wallSign = getCastedHolder(BuiltInRegistries.BLOCK, wallSign);
-    ResourceLocation tagName = new ResourceLocation(name.getNamespace(), name.getPath() + "_logs");
+    ResourceLocation tagName = ResourceLocation.fromNamespaceAndPath(name.getNamespace(), name.getPath() + "_logs");
     this.logBlockTag = BlockTags.create(tagName);
     this.logItemTag = ItemTags.create(tagName);
   }

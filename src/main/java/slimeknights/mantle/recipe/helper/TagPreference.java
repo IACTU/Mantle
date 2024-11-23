@@ -4,9 +4,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TagsUpdatedEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import slimeknights.mantle.config.Config;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -25,7 +25,7 @@ import java.util.function.Function;
  */
 public class TagPreference {
   /** Just an alphabetically late RL to simplify null checks */
-  private static final ResourceLocation DEFAULT_ID = new ResourceLocation("zzzzz:zzzzz"); // simplfies null checks
+  private static final ResourceLocation DEFAULT_ID = ResourceLocation.parse("zzzzz:zzzzz"); // simplfies null checks
 
   /** Cache from any tag key to its value */
   private static final Map<TagKey<?>, Optional<?>> PREFERENCE_CACHE = new ConcurrentHashMap<>();
@@ -34,7 +34,7 @@ public class TagPreference {
 
   /** Registers the listener with the event bus */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> PREFERENCE_CACHE.clear());
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> PREFERENCE_CACHE.clear());
   }
 
   /** Gets the comparator for the given registry */

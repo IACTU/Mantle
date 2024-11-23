@@ -18,6 +18,8 @@ import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.PacketDistributor.PacketTarget;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
@@ -255,7 +257,7 @@ public class JsonHelper {
       .getNamespaces().stream()
       .filter(ResourceLocation::isValidNamespace)
       .flatMap(namespace -> {
-        ResourceLocation location = new ResourceLocation(namespace, path);
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, path);
         return manager.getResourceStack(location).stream()
           .map(preferredPath != null ? resource -> {
             Mantle.logger.warn("Using deprecated path {} in pack {} - use {}:{} instead", location, resource.sourcePackId(), location.getNamespace(), preferredPath);

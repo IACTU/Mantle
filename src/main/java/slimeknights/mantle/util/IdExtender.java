@@ -45,7 +45,7 @@ public interface IdExtender<T extends ResourceLocation> {
   interface LocationExtender extends IdExtender<ResourceLocation> {
     @Override
     default ResourceLocation location(String namespace, String path) {
-      return new ResourceLocation(namespace, path);
+      return ResourceLocation.fromNamespaceAndPath(namespace, path);
     }
   }
 }

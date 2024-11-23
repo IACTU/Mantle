@@ -24,10 +24,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.IQuadTransformer;
-import net.minecraftforge.client.model.QuadTransformers;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
-import net.minecraftforge.client.model.geometry.IGeometryLoader;
+import net.neoforged.neoforge.client.model.IQuadTransformer;
+import net.neoforged.neoforge.client.model.QuadTransformers;
+import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import org.joml.Vector3f;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
@@ -87,7 +87,7 @@ public class ColoredBlockModel extends SimpleBlockModel {
     for (Direction direction : part.faces.keySet()) {
       BlockElementFace face = part.faces.get(direction);
       // ensure the name is not prefixed (it always is)
-      String texture = face.texture;
+      String texture = face.texture();
       if (texture.charAt(0) == '#') {
         texture = texture.substring(1);
       }
@@ -97,10 +97,10 @@ public class ColoredBlockModel extends SimpleBlockModel {
       quadTransformer.processInPlace(quad);
       // apply cull face
       //noinspection ConstantConditions  the annotation is a liar
-      if (face.cullForDirection == null) {
+      if (face.cullForDirection() == null) {
         builder.addUnculledFace(quad);
       } else {
-        builder.addCulledFace(Direction.rotate(transform.getMatrix(), face.cullForDirection), quad);
+        builder.addCulledFace(Direction.rotate(transform.getMatrix(), face.cullForDirection()), quad);
       }
     }
   }
@@ -242,9 +242,9 @@ public class ColoredBlockModel extends SimpleBlockModel {
   public static BakedQuad bakeQuad(Vector3f posFrom, Vector3f posTo, BlockElementFace face, TextureAtlasSprite sprite,
                                    Direction facing, Transformation transform, boolean uvlock, @Nullable BlockElementRotation partRotation,
                                    boolean shade, int emissivity, ResourceLocation location) {
-    BlockFaceUV faceUV = face.uv;
+    BlockFaceUV faceUV = face.uv();
     if (uvlock) {
-      faceUV = FaceBakery.recomputeUVs(face.uv, facing, transform, location);
+      faceUV = FaceBakery.recomputeUVs(face.uv(), facing, transform, location);
     }
 
     float[] originalUV = new float[faceUV.uvs.length];
@@ -269,7 +269,7 @@ public class ColoredBlockModel extends SimpleBlockModel {
     ForgeHooksClient.fillNormal(vertexData, direction);
 
     // bake final quad
-    BakedQuad quad = new BakedQuad(vertexData, face.tintIndex, direction, sprite, shade);
+    BakedQuad quad = new BakedQuad(vertexData, face.tintIndex(), direction, sprite, shade);
     // use our override if specified, fallback to Forge
     // TODO: forge colors
     if (emissivity == -1) {

@@ -13,6 +13,9 @@ import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.ApiStatus;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.mantle.util.IdExtender.LocationExtender;
@@ -43,7 +46,7 @@ public interface IRecipeHelper extends LocationExtender {
    * @return  Location for the mod
    */
   default ResourceLocation location(String name) {
-    return new ResourceLocation(getModId(), name);
+    return ResourceLocation.fromNamespaceAndPath(getModId(), name);
   }
 
   /**
@@ -153,7 +156,7 @@ public interface IRecipeHelper extends LocationExtender {
    * @return  Tag instance
    */
   default TagKey<Item> getItemTag(String modId, String name) {
-    return TagKey.create(Registries.ITEM, new ResourceLocation(modId, name));
+    return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(modId, name));
   }
 
   /**
@@ -163,7 +166,7 @@ public interface IRecipeHelper extends LocationExtender {
    * @return  Tag instance
    */
   default TagKey<Fluid> getFluidTag(String modId, String name) {
-    return TagKey.create(Registries.FLUID, new ResourceLocation(modId, name));
+    return TagKey.create(Registries.FLUID, ResourceLocation.fromNamespaceAndPath(modId, name));
   }
 
   /**

@@ -13,9 +13,8 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.apache.commons.lang3.function.TriFunction;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -54,9 +53,9 @@ public class EmptyFluidContainerTransfer implements IFluidContainerTransfer {
   @Override
   public TransferResult transfer(ItemStack stack, FluidStack fluid, IFluidHandler handler) {
     FluidStack contained = getFluid(stack);
-    int simulated = handler.fill(contained.copy(), FluidAction.SIMULATE);
+    int simulated = handler.fill(contained.copy(), IFluidHandler.FluidAction.SIMULATE);
     if (simulated == this.fluid.getAmount()) {
-      int actual = handler.fill(contained.copy(), FluidAction.EXECUTE);
+      int actual = handler.fill(contained.copy(), IFluidHandler.FluidAction.EXECUTE);
       if (actual > 0) {
         if (actual != this.fluid.getAmount()) {
           Mantle.logger.error("Wrong amount filled from {}, expected {}, filled {}", BuiltInRegistries.ITEM.getKey(stack.getItem()), this.fluid.getAmount(), actual);
